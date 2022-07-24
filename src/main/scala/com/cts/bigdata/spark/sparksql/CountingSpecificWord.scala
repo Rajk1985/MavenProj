@@ -10,13 +10,12 @@ object CountingSpecificWord {
     val sc = spark.sparkContext
     sc.setLogLevel("ERROR")
     import spark.implicits._
-    import spark.sql
     //----------Write Logic Here--------------------------
     val data = "F:\\bigdata\\Dataset\\intro.txt"
     println("------Creating  RDD --------")
     val rdd = sc.textFile(data)
 
-    rdd.foreach(println)
+    rdd.collect().par.foreach(println)
 
     //Convert RDD to Dataframe
     val df = rdd.toDF("text")
@@ -31,7 +30,7 @@ object CountingSpecificWord {
     res.show()
 
     println("------Creating direct Dataframe --------")
-    val df1 = spark.read.format("csv").option("header","true").load(data)
+    val df1 = spark.read.format("csv").option("header", "true").load(data)
 
     df.createOrReplaceTempView("tab1")
     val res1 = spark.sql("Select count(1) from tab1 where text like '%Raj%'")
