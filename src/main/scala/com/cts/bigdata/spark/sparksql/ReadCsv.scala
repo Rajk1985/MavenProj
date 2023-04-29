@@ -16,8 +16,7 @@ object ReadCsv {
     Logger.getLogger("Hello")
 
     println("Inside the clsss")
-
-    val data = "src/main/resources/us-500.csv"
+    val data = "F:\\bigdata\\Dataset\\us-500.csv"
    val df =  spark.read
       .option("header", "true")
       //.format("csv").load("F:\\bigdata\\Dataset\\us-500.csv")
